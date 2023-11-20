@@ -1,9 +1,7 @@
 package com.diplomado.homework.domain.entities;
 
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDate;
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +14,7 @@ public class UserRole {
 
     private Boolean active;
 
+    @CreationTimestamp
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
@@ -27,9 +26,8 @@ public class UserRole {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public UserRole(Boolean active, LocalDateTime createdAt, User user, Role role) {
+    public UserRole(Boolean active, User user, Role role) {
         this.active = active;
-        this.createdAt = createdAt;
         this.user = user;
         this.role = role;
     }

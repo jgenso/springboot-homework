@@ -63,6 +63,13 @@ public class UserController {
                 .body(this.userService.update(dto));
     }
 
+    @PostMapping("/{id}/roles/{roleId}")
+    public ResponseEntity<UserDTO> assignRole(@PathVariable final Long id, @PathVariable final Long roleId) throws URISyntaxException {
+        return ResponseEntity
+                .ok()
+                .body(this.userService.assignRole(id, roleId));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable final Long id) {

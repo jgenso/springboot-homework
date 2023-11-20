@@ -14,6 +14,8 @@ public interface UserService {
     UserDTO save(UserDTO userDTO);
 
     UserDTO update(UserDTO userDTO);
+
+    UserDTO assignRole(Long userId, Long roleId);
     void delete(Long id);
 
 }
