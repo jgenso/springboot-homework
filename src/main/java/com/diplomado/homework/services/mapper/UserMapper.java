@@ -38,10 +38,7 @@ public class UserMapper implements CustomMapper<UserDTO, User> {
         user.setEmail(dto.getEmail());
         if (dto.getUserDetail() != null) {
             user.setUserDetail(userDetailMapper.toEntity(dto.getUserDetail()));
-        }
-
-        if (dto.getId() == null) {
-            user.setCreatedAt(LocalDateTime.now());
+            user.getUserDetail().setUser(user);
         }
 
         return user;

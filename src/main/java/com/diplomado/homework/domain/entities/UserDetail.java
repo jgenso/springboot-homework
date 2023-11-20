@@ -20,18 +20,18 @@ public class UserDetail {
 
     private Integer age;
 
-    @Column(name = "birth_date", columnDefinition = "DATE")
-    private LocalDate birthDate;
+    @Column(name = "birth_day", columnDefinition = "DATE")
+    private LocalDate birthDay;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UserDetail(String firstName, String lastName, Integer age, LocalDate birthDate, User user) {
+    public UserDetail(String firstName, String lastName, Integer age, LocalDate birthDay, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.birthDate = birthDate;
+        this.birthDay = birthDay;
         this.user = user;
     }
 
@@ -70,12 +70,12 @@ public class UserDetail {
         this.age = age;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
     public User getUser() {
@@ -93,7 +93,7 @@ public class UserDetail {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age='" + age + '\'' +
-                ", birthDate='" + birthDate + '\'' +
+                ", birthDate='" + birthDay + '\'' +
                 '}';
     }
 }

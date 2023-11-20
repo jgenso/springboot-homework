@@ -16,5 +16,5 @@ public class UserDetailDTO {
     private String firstName;
     private String lastName;
     private Integer age;
-    private LocalDate birthDate;
+    private LocalDate birthDay;
 }
