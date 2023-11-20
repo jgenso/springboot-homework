@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "`user`")
@@ -25,6 +27,9 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserDetail userDetail;
+
+    @OneToMany(mappedBy = "user")
+    Set<UserRole> userRoles;
 
     public User(String username, String password, String email, LocalDateTime createdAt) {
         this.username = username;
@@ -83,6 +88,15 @@ public class User {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
 
     @Override
     public String toString() {

@@ -3,6 +3,8 @@ package com.diplomado.homework.domain.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -13,6 +15,10 @@ public class Role {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "role")
+    Set<UserRole> userRoles;
+
 
     public Role(String name) {
         this.name = name;
@@ -35,6 +41,14 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     @Override
