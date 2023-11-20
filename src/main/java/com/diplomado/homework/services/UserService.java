@@ -16,6 +16,8 @@ public interface UserService {
     UserDTO update(UserDTO userDTO);
 
     UserDTO assignRole(Long userId, Long roleId);
+
+    UserDTO inactivateRole(Long userId, Long roleId);
     void delete(Long id);
 
 }

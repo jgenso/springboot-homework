@@ -70,6 +70,13 @@ public class UserController {
                 .body(this.userService.assignRole(id, roleId));
     }
 
+    @PatchMapping("/{id}/roles/{roleId}")
+    public ResponseEntity<UserDTO> inactivateRole(@PathVariable final Long id, @PathVariable final Long roleId) throws URISyntaxException {
+        return ResponseEntity
+                .ok()
+                .body(this.userService.inactivateRole(id, roleId));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable final Long id) {
