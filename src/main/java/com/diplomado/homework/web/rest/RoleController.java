@@ -2,6 +2,7 @@ package com.diplomado.homework.web.rest;
 
 import com.diplomado.homework.domain.entities.Role;
 import com.diplomado.homework.dto.RoleDTO;
+import com.diplomado.homework.dto.RoleWithDetailDTO;
 import com.diplomado.homework.services.RoleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,13 @@ public class RoleController {
     @GetMapping
     public ResponseEntity<List<RoleDTO>> listRoles() {
         return ResponseEntity.ok().body(roleService.listRoles());
+    }
+
+    @GetMapping("/{id}/users")
+    public ResponseEntity<RoleWithDetailDTO> listUsersForRole(@PathVariable final Long id) {
+        return ResponseEntity
+                .ok()
+                .body(roleService.listUsersForRole(id));
     }
 
     @GetMapping("/{id}")

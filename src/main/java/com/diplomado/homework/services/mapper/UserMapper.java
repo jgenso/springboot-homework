@@ -5,6 +5,7 @@ import com.diplomado.homework.domain.entities.User;
 import com.diplomado.homework.domain.entities.UserRole;
 import com.diplomado.homework.dto.RoleDTO;
 import com.diplomado.homework.dto.UserDTO;
+import com.diplomado.homework.dto.UserRoleDTO;
 import com.diplomado.homework.repositories.spring.data.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
