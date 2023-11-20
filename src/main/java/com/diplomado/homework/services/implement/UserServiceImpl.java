@@ -97,6 +97,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO inactivateRole(Long userId, Long roleId) {
+        User user = userRepository.getReferenceById(userId);
+        UserRole userRole = user.getUserRoles().stream().filter(ur -> ur.getRole().getId() == roleId).findFirst().get();
+        userRole.setActive(false);
+
+        userRoleRepository.save(userRole);
+
+        return userMapper.toDtoDetailed(userRepository.getReferenceById(userId));
+    }
+
+    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
