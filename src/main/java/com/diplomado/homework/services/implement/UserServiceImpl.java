@@ -43,6 +43,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<UserDTO> listUsersDetailed() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(userMapper::toDtoDetailed).collect(Collectors.toList());
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<UserDTO> getUserById(Long id) {
         return userRepository.findById(id).map(userMapper::toDto);
     }

@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface UserService {
     List<UserDTO> listUsers();
+
+    List<UserDTO> listUsersDetailed();
     Optional<UserDTO> getUserById(Long id);
     UserDTO save(UserDTO userDTO);
 

@@ -22,8 +22,12 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> listUsers() {
-        return ResponseEntity.ok().body(userService.listUsers());
+    public ResponseEntity<List<UserDTO>> listUsers(@RequestParam(required = false, defaultValue = "false") boolean detailed) {
+        if (detailed) {
+            return ResponseEntity.ok().body(userService.listUsersDetailed());
+        } else {
+            return ResponseEntity.ok().body(userService.listUsers());
+        }
     }
 
     @GetMapping("/{id}")
