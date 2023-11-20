@@ -44,7 +44,7 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> editCourse(@RequestBody final RoleDTO dto,
+    public ResponseEntity<RoleDTO> edit(@RequestBody final RoleDTO dto,
                                                 @PathVariable final Long id) throws URISyntaxException {
         if (dto.getId() == null) {
             throw new IllegalArgumentException("Invalid role id, null value");
