@@ -1,6 +1,9 @@
 package com.diplomado.homework.domain.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,6 +17,10 @@ public class Role {
     @Column(columnDefinition = "serial")
     private Long id;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, message = "Role name should have at least 3 characters")
+    @Size(max = 32, message = "Role name should have less than 33 characters")
     private String name;
 
     @OneToMany(mappedBy = "role")
