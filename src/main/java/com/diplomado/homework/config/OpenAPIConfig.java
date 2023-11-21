@@ -2,6 +2,11 @@ package com.diplomado.homework.config;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +17,14 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
+@io.swagger.v3.oas.annotations.security.SecurityScheme(
+        type = SecuritySchemeType.HTTP,
+        name = "basicAuth",
+        scheme = "basic")
+@OpenAPIDefinition(
+        security = @SecurityRequirement(name = "basicAuth") // references the name defined in the line 3
+)
 public class OpenAPIConfig {
-
     @Value("${com.diplomado.homework.openapi.dev-url}")
     private String devUrl;
 
@@ -54,6 +65,8 @@ public class OpenAPIConfig {
                 .contact(contact)
                 .description("This API exposes endpoints to user/role management");
 
-        return new OpenAPI().info(info).servers(List.of(devServer, qaServer, stagingServer, prodServer));
+        return new OpenAPI()
+                .info(info).servers(List.of(devServer, qaServer, stagingServer, prodServer));
     }
+
 }
