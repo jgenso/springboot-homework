@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -88,7 +89,7 @@ public class RoleController {
             @ApiResponse(responseCode = "409", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PostMapping
-    public ResponseEntity<RoleDTO> create(@RequestBody final RoleDTO dto) {
+    public ResponseEntity<RoleDTO> create(@Valid @RequestBody final RoleDTO dto) {
         try {
             if (dto.getId() != null) {
                 throw new IllegalArgumentException("A new role cannot already have an id.");
@@ -115,7 +116,7 @@ public class RoleController {
             @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> edit(@RequestBody final RoleDTO dto,
+    public ResponseEntity<RoleDTO> edit(@Valid @RequestBody final RoleDTO dto,
                                                 @PathVariable final Long id) {
         try {
             if (dto.getId() == null) {

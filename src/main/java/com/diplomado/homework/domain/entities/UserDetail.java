@@ -1,6 +1,10 @@
 package com.diplomado.homework.domain.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -12,14 +16,25 @@ public class UserDetail {
     @Column(columnDefinition = "serial")
     private Long id;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, message = "First name should have at least 3 characters")
+    @Size(max = 32, message = "First name should have less than 33 characters")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, message = "Last name should have at least 3 characters")
+    @Size(max = 32, message = "Last name should have less than 33 characters")
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
+    @Min(18)
     private Integer age;
 
+    @NotNull
     @Column(name = "birth_day", columnDefinition = "DATE")
     private LocalDate birthDay;
 

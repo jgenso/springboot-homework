@@ -1,9 +1,6 @@
 package com.diplomado.homework.web.rest;
 
-import com.diplomado.homework.domain.entities.User;
-import com.diplomado.homework.dto.RoleDTO;
 import com.diplomado.homework.dto.UserDTO;
-import com.diplomado.homework.services.RoleService;
 import com.diplomado.homework.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -12,13 +9,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,9 +77,10 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = UserDTO.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "409", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PostMapping
-    public ResponseEntity<UserDTO> create(@RequestBody final UserDTO dto) {
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody final UserDTO dto) {
         try {
             if (dto.getId() != null) {
                 throw new IllegalArgumentException("A new user cannot already have an id.");
@@ -109,7 +107,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> edit(@RequestBody final UserDTO dto,
+    public ResponseEntity<UserDTO> edit(@Valid @RequestBody final UserDTO dto,
                                                 @PathVariable final Long id) {
         try {
             if (dto.getId() == null) {

@@ -1,6 +1,7 @@
 package com.diplomado.homework.domain.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ public class UserRole {
     @Column(columnDefinition = "serial")
     private Long id;
 
+    @NotNull
     private Boolean active;
 
     @CreationTimestamp

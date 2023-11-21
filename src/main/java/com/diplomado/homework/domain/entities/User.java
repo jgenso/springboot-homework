@@ -1,6 +1,7 @@
 package com.diplomado.homework.domain.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,10 +16,21 @@ public class User {
     @Column(columnDefinition = "serial")
     private Long id;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, message = "Username should have at least 3 characters")
+    @Size(max = 32, message = "Username should have less than 33 characters")
     private String username;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 8, message = "User password should have at least 8 characters")
+    @Size(max = 32, message = "User password should have less than 33 characters")
     private String password;
 
+    @NotNull
+    @NotBlank
+    @Email(message = "User email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     @CreationTimestamp
