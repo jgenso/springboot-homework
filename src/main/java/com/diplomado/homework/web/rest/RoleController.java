@@ -1,19 +1,24 @@
 package com.diplomado.homework.web.rest;
 
-import com.diplomado.homework.domain.entities.Role;
 import com.diplomado.homework.dto.RoleDTO;
 import com.diplomado.homework.dto.RoleWithDetailDTO;
 import com.diplomado.homework.services.RoleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
+@Tag(name = "Role", description = "Role management APIs")
 @RestController
 @RequestMapping("/v1/roles")
 public class RoleController {
@@ -23,11 +28,26 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @Operation(
+            summary = "List all registered roles",
+            description = "Get a List of Role objects. The response is list of roles, with each object with id and name.",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(array = @ArraySchema(schema = @Schema(implementation = RoleDTO.class)), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @GetMapping
     public ResponseEntity<List<RoleDTO>> listRoles() {
         return ResponseEntity.ok().body(roleService.listRoles());
     }
 
+    @Operation(
+            summary = "Retrieve a Role object with the related users",
+            description = "Get an Role object by specifying its id, the response includes a list of users that have that role. Each user has id, username, firstname, lastname, active fields",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = RoleWithDetailDTO.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) })})
     @GetMapping("/{id}/users")
     public ResponseEntity<RoleWithDetailDTO> listUsersForRole(@PathVariable final Long id) {
         try {
@@ -40,6 +60,13 @@ public class RoleController {
         }
     }
 
+    @Operation(
+            summary = "Retrieve a Role by specifying its id",
+            description = "Get an Role object by specifying its id, the response includes id and name fields",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = RoleDTO.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) })})
     @GetMapping("/{id}")
     public ResponseEntity<RoleDTO> getRoleById(@PathVariable final Long id) {
         try {
@@ -52,6 +79,14 @@ public class RoleController {
         }
     }
 
+    @Operation(
+            summary = "Create a new Role",
+            description = "Create a new role, request body contains only the name of the role",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = RoleDTO.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "409", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PostMapping
     public ResponseEntity<RoleDTO> create(@RequestBody final RoleDTO dto) {
         try {
@@ -71,6 +106,14 @@ public class RoleController {
         }
     }
 
+    @Operation(
+            summary = "Update Role info using its id",
+            description = "Update a role, request body contains the id and name of the role, id in request body should match the id in the path",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = RoleDTO.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @PutMapping("/{id}")
     public ResponseEntity<RoleDTO> edit(@RequestBody final RoleDTO dto,
                                                 @PathVariable final Long id) {
@@ -95,6 +138,14 @@ public class RoleController {
     }
 
 
+    @Operation(
+            summary = "Delte Role using the id",
+            description = "Delete a role, path parameter should be the role id",
+            tags = { "Role" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", content = { @Content(schema = @Schema(implementation = Integer.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable final Long id) {
         try {
