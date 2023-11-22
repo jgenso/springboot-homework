@@ -8,15 +8,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDTO {
+public class RoleWithDetailDTO {
     private Long id;
     @NotNull
     @NotBlank
     @Size(min = 3, message = "Role name should have at least 3 characters")
     @Size(max = 32, message = "Role name should have less than 33 characters")
     private String name;
+    private List<UserRoleDTO> users;
 }

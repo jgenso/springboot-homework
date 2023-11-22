@@ -1,6 +1,5 @@
 package com.diplomado.homework.dto;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,14 +8,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailDTO {
+public class UserRoleDTO {
     private Long id;
+
+    private String username;
 
     @NotNull
     @NotBlank
@@ -31,9 +32,5 @@ public class UserDetailDTO {
     private String lastName;
 
     @NotNull
-    @Min(18)
-    private Integer age;
-
-    @NotNull
-    private LocalDate birthDay;
+    private Boolean active;
 }

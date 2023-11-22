@@ -1,6 +1,7 @@
 package com.diplomado.homework.services.implement;
 
 import com.diplomado.homework.dto.RoleDTO;
+import com.diplomado.homework.dto.RoleWithDetailDTO;
 import com.diplomado.homework.repositories.spring.data.RoleRepository;
 import com.diplomado.homework.services.RoleService;
 import com.diplomado.homework.services.mapper.RoleMapper;
@@ -29,6 +30,11 @@ public class RoleServiceImpl implements RoleService {
                 .stream()
                 .map(roleMapper::toDto).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public RoleWithDetailDTO listUsersForRole(Long roleId) {
+        return roleMapper.toRoleWithDetailDTO(roleRepository.getReferenceById(roleId));
     }
 
     @Override
