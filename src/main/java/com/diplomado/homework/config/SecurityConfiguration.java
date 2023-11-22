@@ -26,14 +26,14 @@ class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(SWAGGER_PATHS)
                         .permitAll()
                         .anyRequest()
                         .authenticated()
                 ).httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable);
+                .formLogin(Customizer.withDefaults());
         return http.build();
     }
 }
