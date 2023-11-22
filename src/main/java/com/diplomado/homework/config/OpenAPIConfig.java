@@ -25,6 +25,10 @@ import io.swagger.v3.oas.models.servers.Server;
         security = @SecurityRequirement(name = "basicAuth") // references the name defined in the line 3
 )
 public class OpenAPIConfig {
+
+    private static final String SCHEME_NAME = "basicAuth";
+    private static final String SCHEME = "basic";
+
     @Value("${com.diplomado.homework.openapi.dev-url}")
     private String devUrl;
 
@@ -66,7 +70,18 @@ public class OpenAPIConfig {
                 .description("This API exposes endpoints to user/role management");
 
         return new OpenAPI()
-                .info(info).servers(List.of(devServer, qaServer, stagingServer, prodServer));
+                .info(info).servers(List.of(devServer, qaServer, stagingServer, prodServer))
+                .components(new Components()
+                        .addSecuritySchemes(SCHEME_NAME, createSecurityScheme()))
+                .addSecurityItem(new io.swagger.v3.oas.models.security.SecurityRequirement().addList(SCHEME_NAME));
     }
+
+    private SecurityScheme createSecurityScheme() {
+        return new SecurityScheme()
+                .name(SCHEME_NAME)
+                .type(SecurityScheme.Type.HTTP)
+                .scheme(SCHEME);
+    }
+
 
 }
