@@ -40,7 +40,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserDetail userDetail;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     Set<UserRole> userRoles;
 
     public User(String username, String password, String email, LocalDateTime createdAt) {

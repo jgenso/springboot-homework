@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public Optional<UserDTO> getUserById(Long id) {
-        return userRepository.findById(id).map(userMapper::toDto);
+        return userRepository.findById(id).map(userMapper::toDtoDetailed);
     }
 
     @Override
